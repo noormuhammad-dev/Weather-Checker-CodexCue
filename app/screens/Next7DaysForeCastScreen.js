@@ -1,5 +1,4 @@
 import { StyleSheet, View } from "react-native";
-import { memo } from "react";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Screen from "../screens/Screen";
@@ -17,7 +16,7 @@ const Next7DaysForeCastScreen = () => {
   );
 };
 
-export default memo(Next7DaysForeCastScreen);
+export default Next7DaysForeCastScreen;
 
 const styles = StyleSheet.create({
   container: {

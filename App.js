@@ -1,4 +1,4 @@
-import { Alert, StatusBar } from "react-native";
+import { Alert, BackHandler, StatusBar } from "react-native";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
@@ -70,7 +70,7 @@ const Root = () => {
         Alert.alert(
           "No Internet Connection",
           "Please check your internet connection and try again.",
-          [{ text: "OK" }]
+          [{ text: "OK", onPress: () => BackHandler.exitApp() }]
         );
       }
     });

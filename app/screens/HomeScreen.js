@@ -1,5 +1,5 @@
-import { Alert } from "react-native";
-import { memo, useEffect, useState } from "react";
+import { Alert, BackHandler } from "react-native";
+import { useEffect, useState } from "react";
 import { getForecast, getSearchRecommendation } from "../utils/weather";
 import { useForecastData } from "../store/forecastData-context";
 import { getCurrentCity } from "../utils/location";
@@ -20,13 +20,14 @@ const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showInitialSearchRecommendation, setShowInitialSearchRecommendation] =
     useState(false);
-  const [initialSearchRecommendation, setInitialSearchRecommendation] = useState([
-    {
-      type: "currentLocation",
-      id: "useCurrentCity",
-      name: "Use Current Location",
-    },
-  ]);
+  const [initialSearchRecommendation, setInitialSearchRecommendation] =
+    useState([
+      {
+        type: "currentLocation",
+        id: "useCurrentCity",
+        name: "Use Current Location",
+      },
+    ]);
 
   const forecastHandler = async (cityName) => {
     try {
@@ -48,6 +49,9 @@ const HomeScreen = () => {
       } else {
         const currentCoords = await getCurrentCity();
         if (!currentCoords) {
+          Alert.alert("Error", "Error occurred, Try Again Later!", [
+            { text: "ok", onPress: () => BackHandler.exitApp() },
+          ]);
           return;
         }
         AsyncStorage.setItem("currentCity", JSON.stringify(currentCoords));
@@ -133,4 +137,4 @@ const HomeScreen = () => {
   );
 };
 
-export default memo(HomeScreen);
+export default HomeScreen;
